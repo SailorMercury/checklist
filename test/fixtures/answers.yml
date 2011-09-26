@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  uid: MyString
+  task_id: 1
+  value: 1
+  column_name: MyString
+
+two:
+  uid: MyString
+  task_id: 1
+  value: 1
+  column_name: MyString

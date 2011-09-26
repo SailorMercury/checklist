@@ -1,0 +1,25 @@
+<h1>Listing hashcards</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hashcards.each do |hashcard| %>
+  <tr>
+    <td><%= hashcard.name %></td>
+    <td><%= hashcard.user_id %></td>
+    <td><%= link_to 'Show', hashcard %></td>
+    <td><%= link_to 'Edit', edit_hashcard_path(hashcard) %></td>
+    <td><%= link_to 'Destroy', hashcard, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hashcard', new_hashcard_path %>

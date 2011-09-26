@@ -1,0 +1,2 @@
+module HashcardsHelper
+end

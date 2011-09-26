@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hashcard.name %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @hashcard.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_hashcard_path(@hashcard) %> |
+<%= link_to 'Back', hashcards_path %>
