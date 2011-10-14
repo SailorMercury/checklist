@@ -1,0 +1,24 @@
+<table>
+<% @hash_card.tasks.each do |t| %>
+ <tr>
+  <td><%= t.name %></td>
+  <% t.answers.each do |a| %>
+    <td>
+      <%= form_for a, :html => {:class=>'answer-form',:id=>"answer_for_#{a.task.id}_#{a.column_name}" } do |f| %>
+          <%= f.check_box :value,:class => 'answer-cb'%>
+          <%= f.hidden_field :column_name%>
+          <%= f.hidden_field :task_id %>
+      <% end %>
+    </td>
+  <% end %>
+ </tr>
+<% end %>
+</table>
+
+<script>
+$(function(){
+  $('.answer-cb').click(function(){
+    $(this).parents('form').submit();
+  });
+});
+</script>

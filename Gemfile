@@ -34,3 +34,9 @@ end
 
 gem 'therubyracer'
 gem "omniauth"
+gem 'formtastic', :git => 'https://github.com/justinfrench/formtastic.git'
+gem "nested_form", :git=>'https://github.com/ryanb/nested_form.git'
+gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'less'
+gem 'less-rails', :git => 'git://github.com/metaskills/less-rails.git'
+

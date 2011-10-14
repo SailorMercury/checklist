@@ -1,0 +1,7 @@
+  <%= semantic_form_for answer do |f| %>
+    <td>
+      <%= f.input :value, :type => :checkbox %>
+      <%= f.input :column_name, :type => hidden %>
+      <%= f.commit_button %>
+    </td>
+  <% end %>

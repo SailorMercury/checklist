@@ -25,6 +25,7 @@ class AnswersController < ApplicationController
   # GET /answers/new.json
   def new
     @answer = Answer.new
+    @answer.user = current_user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,32 +41,26 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(params[:answer])
-
-    respond_to do |format|
-      if @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
-        format.json { render json: @answer, status: :created, location: @answer }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
+    @answer = Answer.find_by_column_name(params[:answer][:name])
+    if @answer
+      update
+    else
+      @answer = Answer.new(params[:answer])
     end
+    @answer.user = current_user
+    @answer.save
+    
+    redirect_to answer_session_path(@answer.task.hashcard.user.id, @answer.task.hashcard.name), notice: 'Answer was successfully created.'
+    
   end
 
   # PUT /answers/1
   # PUT /answers/1.json
   def update
     @answer = Answer.find(params[:id])
-
-    respond_to do |format|
-      if @answer.update_attributes(params[:answer])
-        format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
+    
+    if @answer.update_attributes(params[:answer])
+      redirect_to answer_session_path(@answer.task.hashcard.user.id, @answer.task.hashcard.name), notice: 'Answer was successfully updated.'
     end
   end
 

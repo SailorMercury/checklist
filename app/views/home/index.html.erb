@@ -1,5 +1,3 @@
-testatsdasd
-
 <% if current_user %>
   Welcome <%= current_user.name %>!
   <%= link_to "Sign Out", signout_path %>
@@ -8,5 +6,10 @@ testatsdasd
   <%= link_to "Sign in with Facebook", "/auth/facebook" %>
 <% end %>
 
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<table>
+  <% Hashcard.all.each do |hashcard| %>
+    <tr><td>
+      "<b><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str) %></b>" card by <b><%= hashcard.user.name %></b>
+    </td></tr>
+  <% end %>
+</table>

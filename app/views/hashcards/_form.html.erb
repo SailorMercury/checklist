@@ -1,25 +1,11 @@
-<%= form_for(@hashcard) do |f| %>
-  <% if @hashcard.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@hashcard.errors.count, "error") %> prohibited this hashcard from being saved:</h2>
-
-      <ul>
-      <% @hashcard.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= semantic_nested_form_for @hashcard do |f| %>
+<%= f.inputs do%>
+    <%= f.input :name %>
+    <li><h6>Add a new task</h6></li>
+    <%= f.inputs do%>
+         <%= f.inputs :name, :_destroy => :checkboxes, :for => :tasks%>
+    <% end %>
+    <%= f.link_to_add "Add a task", :tasks, :class => "btn" %>
+    <%= f.buttons %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
