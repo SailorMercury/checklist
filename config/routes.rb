@@ -67,7 +67,7 @@ Checklist::Application.routes.draw do
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
   
-  match "/card/:user/:hash_card" => "answer_sessions#new", :as => :answer_sessions
+  match "/card/:user/:hash_card" => "answer_session#new", :as => :answer_session
 
 
 end
