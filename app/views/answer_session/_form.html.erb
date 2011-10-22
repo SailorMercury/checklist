@@ -2,15 +2,21 @@
 <% @hash_card.tasks.each do |t| %>
  <tr>
   <td><%= t.name %></td>
-  <% t.answers.each do |a| %>
-    <td>
-      <%= form_for a, :html => {:class=>'answer-form',:id=>"answer_for_#{a.task.id}_#{a.column_name}" } do |f| %>
-          <%= f.check_box :value,:class => 'answer-cb'%>
-          <%= f.hidden_field :column_name%>
-          <%= f.hidden_field :task_id %>
-      <% end %>
-    </td>
+  <% if !current_user.nil?  %>
+    <% t.answers.for_user(current_user).each do |a| %>
+      <td>
+        <%= form_for a, :html => {:class=>'answer-form',:id=>"answer_for_#{a.task.id}_#{a.column_name}" } do |f| %>
+            <%= f.check_box :value,:class => 'answer-cb'%>
+            <%= f.hidden_field :column_name%>
+            <%= f.hidden_field :task_id %>
+        <% end %>
+      </td>
   <% end %>
+ <%else%>
+    <td>
+     <%= check_box_tag :value,:class => 'answer-cb'%>
+    <td>
+ <% end %>
  </tr>
 <% end %>
 </table>

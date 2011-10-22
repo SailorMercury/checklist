@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="span8">
+    <%= image_tag("/images/Cbanner.png")%>
+  </div>
+  
+  <div class="span3">
+    <% if current_user %>
+      Welcome <%= current_user.name %>!
+      <%= link_to "Sign Out", signout_path, :class => "btn danger" %>
+    <% else %>
+      <%#= link_to "Sign in with Twitter", "/auth/twitter" %>
+      <%= link_to "Sign in with Facebook", "/auth/facebook", :class => "btn primary" %>
+    <% end %>
+  </div>
+</div>
