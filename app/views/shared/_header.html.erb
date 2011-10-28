@@ -1,12 +1,13 @@
 <div class="row">
-  <div class="span8">
+  <div class="span7">
     <%= image_tag("/images/Cbanner.png")%>
   </div>
   
-  <div class="span3">
+  <div class="span4">
     <% if current_user %>
-      Welcome <%= current_user.name %>!
-      <%= link_to "Sign Out", signout_path, :class => "btn danger" %>
+      <p align="center">Welcome</p>
+      <span class="label success"><%= current_user.name %>!</span></br></br>
+      <p align="center"><%= link_to "Sign Out", signout_path, :class => "btn danger" %></p>
     <% else %>
       <%#= link_to "Sign in with Twitter", "/auth/twitter" %>
       <%= link_to "Sign in with Facebook", "/auth/facebook", :class => "btn primary" %>

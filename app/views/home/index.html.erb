@@ -1,7 +1,13 @@
-<table>
-  <% Hashcard.all.each do |hashcard| %>
-    <tr><td>
-      "<b><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str) %></b>" card by <b><%= hashcard.user.name %></b>
-    </td></tr>
-  <% end %>
-</table>
+<% Hashcard.all.each do |hashcard| %>
+  <div class="row">
+    <div class="span4">
+      <p align="right"><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str), :class => "btn primary" %></p>
+    </div>
+    <div class="span2">
+      card by 
+    </div>
+    <div class="span5">
+      <span class="label warning"><%= hashcard.user.name %></span>
+    </div>
+  </div>
+<% end %>
