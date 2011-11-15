@@ -1,0 +1,9 @@
+Hash Card by <%= User.find_by_id(@id).name%>
+
+<ul>
+  <% User.find_by_id(@id).hashcards.each do |h|%>
+
+    <li><%= link_to h.name, ("card/"+h.user.id.to_s+"/"+h.name.to_str) %></li>
+    
+  <% end %>
+</ul>

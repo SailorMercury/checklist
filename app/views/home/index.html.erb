@@ -1,13 +1,30 @@
+<%
+  @paginated_cards = Hashcard.paginate(:page => params[:page], :per_page => 2)
+%>
+
+<div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @paginated_cards %>
+    </div>
+    <%= will_paginate @paginated_cards, :container => false %>
+</div>
+
+
+
 <% Hashcard.all.each do |hashcard| %>
   <div class="row">
+  
     <div class="span4">
-      <p align="right"><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str), :class => "btn primary" %></p>
+      <p align="right"><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str) %></p>
     </div>
+    
     <div class="span2">
       card by 
     </div>
+    
     <div class="span5">
-      <span class="label warning"><%= hashcard.user.name %></span>
+      <span class="label warning"><%= link_to hashcard.user.name, list_by_users_path(:id => hashcard.user.id) %></span>
     </div>
+    
   </div>
 <% end %>

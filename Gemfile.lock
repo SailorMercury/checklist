@@ -200,6 +200,7 @@ GEM
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    will_paginate (3.0.2)
 
 PLATFORMS
   ruby
@@ -219,3 +220,4 @@ DEPENDENCIES
   turn
   twitter-bootstrap-rails!
   uglifier
+  will_paginate (~> 3.0)

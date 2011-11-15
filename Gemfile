@@ -39,4 +39,4 @@ gem "nested_form", :git=>'https://github.com/ryanb/nested_form.git'
 gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'less'
 gem 'less-rails', :git => 'git://github.com/metaskills/less-rails.git'
-
+gem 'will_paginate', '~> 3.0'
