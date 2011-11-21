@@ -1,11 +1,11 @@
 <%= semantic_nested_form_for @hashcard do |f| %>
 <%= f.inputs do%>
     <%= f.input :name %>
-    <li><h6>Add a new task</h6></li>
+    <li><h5>Add a new task</h5></li>
     <%= f.inputs do%>
          <%= f.inputs :name, :_destroy => :checkboxes, :for => :tasks%>
     <% end %>
-    <%= f.link_to_add "Add a task", :tasks, :class => "btn" %>
+    <%= f.link_to_add "Add a task", :tasks, :class => "btn primary" %>
     <%= f.buttons %>
   <% end %>
 <% end %>

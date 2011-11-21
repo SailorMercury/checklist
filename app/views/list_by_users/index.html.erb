@@ -1,9 +1,13 @@
-Hash Card by <%= User.find_by_id(@id).name%>
+<% if User.find_by_id(@id) == nil %>
+  User not found
+<% else %>
+  Hash Card by <%= User.find_by_id(@id).name%>
 
-<ul>
-  <% User.find_by_id(@id).hashcards.each do |h|%>
+  <ul>
+    <% User.find_by_id(@id).hashcards.each do |h|%>
 
-    <li><%= link_to h.name, ("card/"+h.user.id.to_s+"/"+h.name.to_str) %></li>
-    
-  <% end %>
-</ul>
+      <li><%= link_to h.name, ("card/"+h.user.id.to_s+"/"+h.name.to_str) %></li>
+      
+    <% end %>
+  </ul>
+<% end %>
