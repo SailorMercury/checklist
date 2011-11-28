@@ -1,4 +1,6 @@
 Checklist::Application.routes.draw do
+  resources :accounts
+
   resources :list_by_users
 
   resources :hashcards

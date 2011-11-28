@@ -35,6 +35,7 @@ class HashcardsController < ApplicationController
   # GET /hashcards/1/edit
   def edit
     @hashcard = Hashcard.find(params[:id])
+    redirect_to root_path if !(@hashcard.user_id == current_user.id)
   end
 
   # POST /hashcards

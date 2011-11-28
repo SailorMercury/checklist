@@ -35,6 +35,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    redirect_to root_path if !(@task.user_id == current_user.id)
   end
 
   # POST /tasks

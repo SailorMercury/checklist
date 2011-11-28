@@ -3,20 +3,18 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>User</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @hashcards.each do |hashcard| %>
-  <tr>
-    <td><%= hashcard.name %></td>
-    <td><%= hashcard.user_id %></td>
-    <td><%= link_to 'Show', hashcard %></td>
-    <td><%= link_to 'Edit', edit_hashcard_path(hashcard) %></td>
-    <td><%= link_to 'Destroy', hashcard, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <% if hashcard.user_id == current_user.id %>
+    <tr>
+      <td><%= hashcard.name %></td>
+      <td><%= link_to 'Edit', edit_hashcard_path(hashcard) %></td>
+      <td><%= link_to 'Destroy', hashcard, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 

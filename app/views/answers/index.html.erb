@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-    <th>Uid</th>
+    <th>Id</th>
+    <th>User ID</th>
     <th>Task</th>
     <th>Value</th>
     <th>Column name</th>
@@ -12,15 +13,18 @@
   </tr>
 
 <% @answers.each do |answer| %>
-  <tr>
-    <td><%= answer.uid %></td>
-    <td><%= answer.task_id %></td>
-    <td><%= answer.value %></td>
-    <td><%= answer.column_name %></td>
-    <td><%= link_to 'Show', answer %></td>
-    <td><%= link_to 'Edit', edit_answer_path(answer) %></td>
-    <td><%= link_to 'Destroy', answer, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <% if answer.user_id == 0 %>
+    <tr>
+      <td><%= answer.id %></td>
+      <td><%= answer.user_id %></td>
+      <td><%= answer.task_id %></td>
+      <td><%= answer.value %></td>
+      <td><%= answer.column_name %></td>
+      <td><%= link_to 'Show', answer %></td>
+      <td><%= link_to 'Edit', edit_answer_path(answer) %></td>
+      <td><%= link_to 'Destroy', answer, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 
