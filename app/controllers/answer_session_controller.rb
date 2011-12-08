@@ -11,10 +11,9 @@ class AnswerSessionController < ApplicationController
             a.value = nil
           end
        else
-          t.answers.build :column_name => "default", :user_id => current_user.id
+          t.answers.create :column_name => "default", :user_id => current_user.id
        end
     end
-    
     
   end
   

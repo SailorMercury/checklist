@@ -1,15 +1,26 @@
 <div class="row">
-  <div class="span7">
-    <%#= image_tag("/images/Cbanner.png")%>
-    <h1>Checklist</h1>
+
+  <div class="topbar" data-scrollspy="scrollspy">
+    <div class="topbar-inner">
+      <div class="container">
+        <a class="brand" href="#">Checklist</a>
+        <ul class="nav">
+          <li class="">
+            <a href="#">ABC</a>
+          </li>
+          <li class="">
+            <a href="#">XYZ</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  
-  <div class="span4">
+
+  <div class="secondary hearder" style="padding-top: 40px;"> 
     <% if current_user %>
-      <p align="center">Welcome</p>
-      <span class="label success"><%= current_user.name %>!</span></br></br>
-      <p align="center"><%= link_to "Account", accounts_path, :class => "btn info" %></p>
-      <p align="center"><%= link_to "Sign Out", signout_path, :class => "btn danger" %></p>
+      <p align="left">Welcome <span class="label success"><%= current_user.name %>!</span></p>
+      <p align="right"><%= link_to "Account", accounts_path, :class => "btn info" %></p>
+      <p align="right"><%= link_to "Sign Out", signout_path, :class => "btn danger" %></p>
     <% else %>
       <%#= link_to "Sign in with Twitter", "/auth/twitter" %>
       <%= link_to "Sign in with Facebook", "/auth/facebook", :class => "btn primary" %>
