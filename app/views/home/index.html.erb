@@ -11,8 +11,11 @@
 
 <h2>Latest Hash Card</h2>
 <table class="bordered-table zebra-striped">
-  <tr><td>Hash Card</td><td>User</td></tr>
+  <tr><th>Hash Card</th><th>User</th></tr>
   <% paginated_cards.all.each do |hashcard| %>
     <tr><td><%= link_to hashcard.name, ("card/"+hashcard.user.id.to_s+"/"+hashcard.name.to_str) %></td><td><%= link_to hashcard.user.name, list_by_users_path(:id => hashcard.user.id) %></td></tr>
   <% end %>
 </table>
+<script>
+  $("tr:odd").css("background-color", "#bbbbff");
+</script>

@@ -6,6 +6,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jqueryui
-//= require jqueryui/start
 //= require_tree .

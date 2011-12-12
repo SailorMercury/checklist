@@ -22,16 +22,27 @@
  </tr>
 <% end %>
 </table>
-<button id ="button_column" class = "btn primary" style="height: 200px; width: 10%">New Column</button>
+
+<div id="column_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Column</h3>
+  </div>
+  <div class="modal-body">
+    Please enter the new column name
+    <form>
+      <input class="small" name="new_column" />
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" id="close_column_modal" class="btn secondary">Cancel</a>
+    <a href="#" class="btn primary">Submit</a>
+  </div>
+</div>
+<button id ="button_column" class = "btn primary" style="height: 200px; width: 10%" data-keyboard="true" data-backdrop="true" data-controls-modal="column_modal">New Column</button>
+
 </br>
 <button id ="button_row" class = "btn info" style="height: 50px; width: 100%">New Row</button>
-
-<div id="new_column_dialog" title="Create New Column">
-  Please enter the new column name
-  <form>
-    <input class="small" name="new_column" />
-  </form>
-</div>
 
 <div id="new_row_dialog" title="Create New Row">
   Please enter the new row name
@@ -48,28 +59,8 @@ $(function(){
 });
 
 $(function(){
-  $('#btnRow').click(function(){
-    $('#mainTable > tbody:last').append('<tr><td>asd</td><td>check box</td></tr>');
-    $(this).hide();
-  });
-});
-
-$(function(){
-  $('#new_column_dialog').dialog({
-    autoOpen: false,
-    width: 600,
-    buttons: {
-      "Ok": function() { 
-        $(this).dialog("close"); 
-      }, 
-      "Cancel": function() { 
-        $(this).dialog("close"); 
-      } 
-    }
-  });
-  $('#button_column').click(function(){
-    $('#new_column_dialog').dialog('open');
-    return false;
+  $('#close_column_modal').click(function(){
+    $('#column_modal').modal('hide');
   });
 });
 
