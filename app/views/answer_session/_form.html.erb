@@ -1,6 +1,11 @@
-<h1><%= @hash_card.name %> checklist</h1> 
-<table class="bordered-table zebra-striped" id="mainTable" align="left" style="width: 90%;">
-<tr><td>&nbsp</td><th><%= @hash_card.tasks.first.answers.first.column_name %></th></tr>
+<h1><%= @hash_card.name %> checklist</h1>
+
+<table class="bordered-table zebra-striped" id="mainTable" align="left">
+<tr><th>&nbsp</th>
+<% @hash_card.tasks.first.answers.each do |a|%>
+  <th><%= a.column_name %></th>
+<% end %>
+</tr>
 <% @hash_card.tasks.each do |t| %>
   <tr>
   <td><%= t.name %></td>
@@ -22,6 +27,13 @@
  </tr>
 <% end %>
 </table>
+<button id ="button_column" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="column_modal">New Column</button>
+<button id ="button_row" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="row_modal">New Row</button>
+<button id ="button_edit_column" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_column_modal">Edit Column</button>
+<button id ="button_edit_row" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_row_modal">Edit Row</button>
+
+
+
 
 <div id="column_modal" class="modal hide fade">
   <div class="modal-header">
@@ -29,57 +41,95 @@
     <h3>New Column</h3>
   </div>
   <div class="modal-body">
-    Please enter the new column name
-    <form>
-      <input class="small" name="new_column" />
-    </form>
+    Please enter new column name.
+    <% new_answer = Answer.new%>
+     <%= form_for new_answer do |f| %>
+      <%= f.hidden_field :task_id, :value => @hash_card.tasks.first.id %>
+      <%= f.hidden_field :user_id, :value => current_user%>
+      <%= f.text_field :column_name %>
   </div>
   <div class="modal-footer">
-    <a href="#" id="close_column_modal" class="btn secondary">Cancel</a>
-    <a href="#" class="btn primary">Submit</a>
+    <a href="#" class="btn secondary myclose" >Cancel</a>
+    <%= f.submit "Submit", :class=>"btn primary"%>
+    <% end %>
   </div>
 </div>
-<button id ="button_column" class = "btn primary" style="height: 200px; width: 10%" data-keyboard="true" data-backdrop="true" data-controls-modal="column_modal">New Column</button>
 
-</br>
-<button id ="button_row" class = "btn info" style="height: 50px; width: 100%">New Row</button>
-
-<div id="new_row_dialog" title="Create New Row">
-  Please enter the new row name
-  <form>
-    <input class="small" name="new_row" />
-  </form>
+<div id="row_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Row</h3>
+  </div>
+  <div class="modal-body">
+    Please enter new row name.
+    <% new_task= Task.new%>
+     <%= form_for new_task do |f| %>
+      <%= f.hidden_field :hashcard_id, :value => @hash_card.id %>
+      <%= f.text_field :name %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose">Cancel</a>
+      <%= f.submit "Submit", :class=>"btn primary"%>
+    <% end %>
+  </div>
 </div>
+
+<div id="edit_column_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Row</h3>
+  </div>
+  <div class="modal-body">
+    Editing Column Name
+    <% @hash_card.tasks.first.answers.for_user(current_user).each do |a| %>
+      <%= form_for a do |f| %>
+        <%= f.text_field :column_name %>
+        <%= f.hidden_field :user_id %>
+        <%= f.hidden_field :task_id %>
+        <%= f.submit "Update Column", :class=>"btn primary" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose">Cancel</a>
+  </div>
+</div>
+
+<div id="edit_row_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Row</h3>
+  </div>
+  <div class="modal-body">
+    Editing Task Name
+    <% @hash_card.tasks.each do |a| %>
+      <%= form_for a do |f| %>
+        <%= f.text_field :name %>
+        <%= f.hidden_field :hashcard_id %>
+        <%= f.submit "Update Task", :class=>"btn primary" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose">Cancel</a>
+  </div>
+</div>
+
+
+    
 
 <script>
 $(function(){
+  $('#row_modal').modal();
+  
   $('.answer-cb').click(function(){
     $(this).parents('form').submit();
   });
-});
-
-$(function(){
-  $('#close_column_modal').click(function(){
+  
+  $('.myclose').click(function(){
     $('#column_modal').modal('hide');
-  });
-});
-
-$(function(){
-  $('#new_row_dialog').dialog({
-    autoOpen: false,
-    width: 600,
-    buttons: {
-      "Ok": function() { 
-        $(this).dialog("close"); 
-      }, 
-      "Cancel": function() { 
-        $(this).dialog("close"); 
-      } 
-    }
-  });
-  $('#button_row').click(function(){
-    $('#new_row_dialog').dialog('open');
-    return false;
+    $('#row_modal').modal('hide');
+    $('#edit_row_modal').modal('hide');
   });
 });
 

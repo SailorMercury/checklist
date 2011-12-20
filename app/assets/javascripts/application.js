@@ -6,4 +6,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require bootstrap-modal.js
+//= require nested_form.js

@@ -40,3 +40,4 @@ gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-boots
 gem 'less'
 gem 'less-rails', :git => 'git://github.com/metaskills/less-rails.git'
 gem 'will_paginate', '~> 3.0'
+gem 'has_permalink'
