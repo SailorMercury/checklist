@@ -50,7 +50,7 @@ class AnswersController < ApplicationController
     @answer.user = current_user
     @answer.save
     
-    redirect_to answer_session_path(@answer.task.hashcard.user.id, @answer.task.hashcard.name), notice: 'Answer was successfully created.'
+    redirect_to answer_session_path(@answer.task.hashcard.permalink), notice: 'Answer was successfully created.'
     
   end
 

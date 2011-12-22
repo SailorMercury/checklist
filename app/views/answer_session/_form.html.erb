@@ -45,7 +45,8 @@
     <% new_answer = Answer.new%>
      <%= form_for new_answer do |f| %>
       <%= f.hidden_field :task_id, :value => @hash_card.tasks.first.id %>
-      <%= f.hidden_field :user_id, :value => current_user%>
+      <%= f.hidden_field :user_id, :value => current_user.id%>
+      
       <%= f.text_field :column_name %>
   </div>
   <div class="modal-footer">
