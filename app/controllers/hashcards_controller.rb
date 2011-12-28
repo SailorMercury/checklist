@@ -45,7 +45,7 @@ class HashcardsController < ApplicationController
     @hashcard.user = current_user
     respond_to do |format|
       if @hashcard.save
-        format.html { redirect_to @hashcard, notice: 'Hashcard was successfully created.' }
+        format.html { redirect_to answer_session_path(@hashcard.permalink), notice: 'Hashcard was successfully created.' }
         format.json { render json: @hashcard, status: :created, location: @hashcard }
       else
         format.html { render action: "new" }

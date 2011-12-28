@@ -68,12 +68,11 @@ class AnswersController < ApplicationController
   # DELETE /answers/1
   # DELETE /answers/1.json
   def destroy
-    @answer = Answer.find(params[:id])
-    @answer.destroy
-
-    respond_to do |format|
-      format.html { redirect_to answers_url }
-      format.json { head :ok }
+    initial = Answer.find(params[:id])
+    @answer = initial.task.hashcard
+    @answer.tasks.each do |t|
+      t.answers.find_by_column_name(initial.column_name).destroy
     end
+    redirect_to answer_session_path(initial.task.hashcard.permalink), notice: 'Answer was successfully deleted.'
   end
 end

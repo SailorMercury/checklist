@@ -44,7 +44,7 @@ class TasksController < ApplicationController
     @task = Task.new(params[:task])
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to answer_session_path(@task.hashcard.permalink), notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
       else
         format.html { render action: "new" }
@@ -61,9 +61,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update_attributes(params[:task])
         format.html { redirect_to answer_session_path(@task.hashcard.permalink), notice: 'Task was successfully updated.' }
-        #raise answer_session_path(@task.hashcard.permalink).inspect
         format.json { head :ok }
-        #redirect_to answer_session_path(@task.hashcard.permalink)
         
       else
         format.html { render action: "edit" }
