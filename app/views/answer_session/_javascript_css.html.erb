@@ -1,0 +1,35 @@
+<script>
+$(function(){
+  $('#row_modal').modal();
+  
+  $('.answer-cb').click(function(){
+    $(this).parents('form').submit();
+  });
+  
+  $('.myclose').click(function(){
+    $('#column_modal').modal('hide');
+    $('#row_modal').modal('hide');
+    $('#edit_row_modal').modal('hide');
+    $('#edit_column_modal').modal('hide');
+  });
+});
+
+</script>
+
+<style>
+  .checkbox{
+    text-align:center;
+  }
+  input[type=checkbox]{
+    display:none;
+  }
+  input[type=checkbox] + label{
+    display:inline-block;
+    height: 25px;
+    padding-left: 25px;
+    background: url(/assets/unchecked.png) top left no-repeat;
+  }
+  input[type=checkbox]:checked + label {
+    background-image: url(/assets/checked.png);
+  }
+</style>

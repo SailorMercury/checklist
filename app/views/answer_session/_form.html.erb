@@ -4,17 +4,17 @@
 <table class="bordered-table zebra-striped" id="mainTable">
 <tr><th>&nbsp</th>
 <% @hash_card.tasks.first.answers.each do |a|%>
-  <th><%= a.column_name %> <%= link_to 'Destroy', a, confirm: 'Are you sure?', method: :delete, :class => "btn small danger"%> </th>
+  <th><%= a.column_name %> <% if !current_user.nil?  %><%= link_to 'Destroy', a, confirm: 'Are you sure?', method: :delete, :class => "btn small danger"%> </th><% end %>
 <% end %>
 </tr>
 <% @hash_card.tasks.each do |t| %>
   <tr>
-  <td><%= link_to 'Destroy', t, confirm: 'Are you sure?', method: :delete, :class => "btn small danger"%> <%= t.name %></td>
+  <td><% if !current_user.nil?  %><%= link_to 'Destroy', t, confirm: 'Are you sure?', method: :delete, :class => "btn small danger"%><% end %> <%= t.name %></td>
   <% if !current_user.nil?  %>
     <% t.answers.for_user(current_user).each do |a| %>
       <td>
         <%= form_for a, :html => {:class=>'answer-form',:id=>"answer_for_#{a.task.id}_#{a.column_name}" } do |f| %>
-            <%= f.check_box :value,:class => 'answer-cb'%>
+            <%= f.check_box :value,:class => 'answer-cb',:id => "cb-#{a.id}"%><label for="cb-<%=a.id%>"></label>
             <%= f.hidden_field :column_name%>
             <%= f.hidden_field :task_id %>
         <% end %>
@@ -23,123 +23,24 @@
  <%else%>
     <td>
      <%= check_box_tag :value,:class => 'answer-cb'%>
+     &nbsp
     <td>
  <% end %>
  </tr>
 <% end %>
 </table>
-<button id ="button_column" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="column_modal">New Column</button>
-<button id ="button_row" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="row_modal">New Row</button>
-<button id ="button_edit_column" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_column_modal">Edit Column</button>
-<button id ="button_edit_row" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_row_modal">Edit Row</button>
 
+<% if !current_user.nil?  %>
+  <button id ="button_column" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="column_modal">New Column</button>
+  <button id ="button_row" class = "btn primary" data-keyboard="true" data-backdrop="true" data-controls-modal="row_modal">New Row</button>
+  <button id ="button_edit_column" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_column_modal">Edit Column</button>
+  <button id ="button_edit_row" class = "btn info" data-keyboard="true" data-backdrop="true" data-controls-modal="edit_row_modal">Edit Row</button>
+  <%= render 'column_modal' %>
+  <%= render 'row_modal' %>
+  <%= render 'edit_column_modal' %>
+  <%= render 'edit_row_modal' %>
+<% else %>
+<% end %>
 
+<%= render 'javascript_css.html.erb' %>
 
-
-<div id="column_modal" class="modal hide fade">
-  <div class="modal-header">
-    <a href="#" class="close">&times;</a>
-    <h3>New Column</h3>
-  </div>
-  <div class="modal-body">
-    Please enter new column name.
-    <% new_answer = Answer.new%>
-     <%= form_for new_answer do |f| %>
-      <%= f.hidden_field :task_id, :value => @hash_card.tasks.first.id %>
-      <%= f.hidden_field :user_id, :value => current_user.id%>
-      
-      <%= f.text_field :column_name %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn secondary myclose" >Cancel</a>
-    <%= f.submit "Submit", :class=>"btn primary"%>
-    <% end %>
-  </div>
-</div>
-
-<div id="row_modal" class="modal hide fade">
-  <div class="modal-header">
-    <a href="#" class="close">&times;</a>
-    <h3>New Row</h3>
-  </div>
-  <div class="modal-body">
-    Please enter new row name.
-    <% new_task= Task.new%>
-     <%= form_for new_task do |f| %>
-      <%= f.hidden_field :hashcard_id, :value => @hash_card.id %>
-      <%= f.text_field :name %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn secondary myclose">Cancel</a>
-      <%= f.submit "Submit", :class=>"btn primary"%>
-    <% end %>
-  </div>
-</div>
-
-<div id="edit_column_modal" class="modal hide fade">
-  <div class="modal-header">
-    <a href="#" class="close">&times;</a>
-    <h3>New Row</h3>
-  </div>
-  <div class="modal-body">
-    Editing Column Name
-    <% @hash_card.tasks.first.answers.for_user(current_user).each do |a| %>
-      <%= form_for a do |f| %>
-        <%= f.text_field :column_name %>
-        <%= f.hidden_field :user_id %>
-        <%= f.hidden_field :task_id %>
-        <%= f.submit "Update Column", :class=>"btn primary" %>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn secondary myclose">Cancel</a>
-  </div>
-</div>
-
-<div id="edit_row_modal" class="modal hide fade">
-  <div class="modal-header">
-    <a href="#" class="close">&times;</a>
-    <h3>New Row</h3>
-  </div>
-  <div class="modal-body">
-    Editing Task Name
-    <% @hash_card.tasks.each do |a| %>
-      <%= form_for a do |f| %>
-        <%= f.text_field :name %>
-        <%= f.hidden_field :hashcard_id %>
-        <%= f.submit "Update Task", :class=>"btn primary" %>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn secondary myclose">Cancel</a>
-  </div>
-</div>
-
-	<form>
-		<fieldset>
-      testing check box
-			<p><input type="checkbox" value="CSS3" id="css3" /> <label for="css3">CSS3</label></p>
-			<p><input type="checkbox" value="HTML5" id="html5" /> <label for="html5">HTML5</label></p>
-		</fieldset>
-</form>
-
-<script>
-$(function(){
-  $('#row_modal').modal();
-  
-  $('.answer-cb').click(function(){
-    $(this).parents('form').submit();
-  });
-  
-  $('.myclose').click(function(){
-    $('#column_modal').modal('hide');
-    $('#row_modal').modal('hide');
-    $('#edit_row_modal').modal('hide');
-    $('#edit_column_modal').modal('hide');
-  });
-});
-
-
-</script>

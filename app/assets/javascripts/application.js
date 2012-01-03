@@ -8,4 +8,3 @@
 //= require jquery_ujs
 //= require bootstrap-modal.js
 //= require nested_form.js
-//= require jquery.checkbox.js

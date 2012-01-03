@@ -1,0 +1,20 @@
+<div id="edit_column_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Row</h3>
+  </div>
+  <div class="modal-body">
+    Editing Column Name
+    <% @hash_card.tasks.first.answers.for_user(current_user).each do |a| %>
+      <%= form_for a do |f| %>
+        <%= f.text_field :column_name %>
+        <%= f.hidden_field :user_id %>
+        <%= f.hidden_field :task_id %>
+        <%= f.submit "Update Column", :class=>"btn primary" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose">Cancel</a>
+  </div>
+</div>

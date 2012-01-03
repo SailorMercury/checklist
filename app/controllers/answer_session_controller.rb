@@ -27,5 +27,9 @@ class AnswerSessionController < ApplicationController
          t.answers.create :column_name => initial_task.answers.last.column_name, :user_id => current_user.id
        end
     end
+    
+    @new_answer = Answer.new
+    @new_answer.user=current_user if !current_user.nil?
+    
   end
 end

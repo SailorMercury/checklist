@@ -1,0 +1,18 @@
+<div id="row_modal" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>New Row</h3>
+  </div>
+  <div class="modal-body">
+    Please enter new row name.
+    <% new_task= Task.new%>
+     <%= form_for new_task do |f| %>
+      <%= f.hidden_field :hashcard_id, :value => @hash_card.id %>
+      <%= f.text_field :name %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn secondary myclose">Cancel</a>
+      <%= f.submit "Submit", :class=>"btn primary"%>
+    <% end %>
+  </div>
+</div>

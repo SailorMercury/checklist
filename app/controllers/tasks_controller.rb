@@ -77,7 +77,7 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to answer_session_path(@task.hashcard.permalink), notice: 'Task was successfully deleted.' }
       format.json { head :ok }
     end
   end

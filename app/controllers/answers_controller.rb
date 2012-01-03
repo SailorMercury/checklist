@@ -57,12 +57,17 @@ class AnswersController < ApplicationController
   # PUT /answers/1
   # PUT /answers/1.json
   def update
-    initial = Answer.find(params[:id])
-    @answer = initial.task.hashcard
-    @answer.tasks.each do |t|
-      t.answers.find_by_column_name(initial.column_name).update_attributes(:column_name => params[:answer][:column_name])
+    answer = Answer.find(params[:id])
+    if answer.value != params[:answer][:value]
+      a = answer.update_attributes(:value => params[:answer][:value])
+    elsif answer.column_name != params[:answer][:column_name]
+      @answer = answer.task.hashcard
+      @answer.tasks.each do |t|
+        t.answers.find_by_column_name(answer.column_name).update_attributes(:column_name => params[:answer][:column_name])
+      end
     end
-    redirect_to answer_session_path(initial.task.hashcard.permalink), notice: 'Answer was successfully updated.'
+    
+    redirect_to answer_session_path(answer.task.hashcard.permalink), notice: 'Answer was successfully updated.'
   end
 
   # DELETE /answers/1
