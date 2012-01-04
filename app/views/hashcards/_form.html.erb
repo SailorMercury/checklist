@@ -1,11 +1,19 @@
-<%= semantic_nested_form_for @hashcard do |f| %>
-<%= f.inputs do%>
-    <%= f.input :name %>
-    <li><h5>Add a new task</h5></li>
-    <%= f.inputs do%>
-         <%= f.inputs :name, :_destroy => :checkboxes, :for => :tasks%>
+<%= nested_form_for @hashcard do |f| %>
+    <div class="clearfix">
+      <%= f.label :name, :class => "label"%>
+      <%= f.text_field :name, :size => 40 %>
+    </div>
+    <h5>Add a new task</h5>
+    <%= f.fields_for :tasks do |task_form| %>
+     <div class="clearfix">
+       <%= task_form.label "New Task", :class => "label" %>
+       <%= task_form.text_field :name, :_destroy => :checkboxes, :for => :tasks %>
+       <%= task_form.link_to_remove "Remove this task", :class => "btn danger" %>
+     </div>
     <% end %>
-    <%= f.link_to_add "Add a task", :tasks, :class => "btn primary" %>
-    <%= f.buttons %>
-  <% end %>
+    <%= f.link_to_add "Add a task", :tasks, :class => "btn info" %>
+    <br>
+    <br>
+    <%= f.submit "Submit", :class => "btn primary" %>
+
 <% end %>
